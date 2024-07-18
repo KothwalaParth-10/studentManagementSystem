@@ -3,6 +3,14 @@ const Account=require("../models/UserDataschema")
 const signup = async(req, res) => {
     try {
         const {password, email, name} = req.body;
+
+        const AlreadyExist= Account.findOne({email: email});
+
+        if(AlreadyExist)
+        {
+            return res.status(400).json({error: "Username already exist" });
+        }
+
         const atIndex = email.indexOf('@');
         const username = email.substring(0, atIndex);
 

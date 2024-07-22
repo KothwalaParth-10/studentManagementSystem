@@ -35,7 +35,7 @@ function SignUpPage(props) {
     {
       toast.success(data.message)
       props.setisLogedin(true);
-      Navigate("/smp/mainPage")
+      Navigate(`/smp/mainPage/${data.id}`)
     }
      }
   return (

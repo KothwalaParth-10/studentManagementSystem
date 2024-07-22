@@ -6,9 +6,10 @@ const signup = async(req, res) => {
         const atIndex = email.indexOf('@');
         const username = email.substring(0, atIndex);
 
-        await Account.create({username,password,email,name});
+       const data=await Account.create({username,password,email,name});
         
         res.status(200).json({
+            id:data._id,
             success: true,
             message: 'Signed Up successfully',
         });

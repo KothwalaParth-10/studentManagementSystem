@@ -1,9 +1,16 @@
-import React from 'react'
+import { useLocation } from 'react-router-dom'
+import User from '../components/User';
+import Admin from '../components/Admin';
 
 function MainPage() {
-  console.log("main page");
+  const location=useLocation()
+  const users=location.pathname.split("/").at(-2);
   return (
-    <div>Main page is renedered</div>
+    <div>
+      {
+        users === "true"?(<Admin></Admin>):(<User></User>)
+      }
+    </div>
   )
 }
 

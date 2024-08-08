@@ -22,11 +22,25 @@ const login=async (req,res)=>{
             message:"Password does not exit"
           })   
     }
-    return res.json({
-        id:data._id,
-        success:true,
-        message:"Login successfully"
-      })  
+      const checkuser=JSON.stringify(data._id)
+      if(checkuser == '"66a0d2dc3e4423236dcf6b01"' || checkuser == '"66a0d3d877790c5950b815af"')
+      {
+        return res.json({
+          id:data._id,
+          success:true,
+          message:"Login successfully",
+          admin:true
+        })  
+      } 
+      else
+      {
+        return res.json({
+          id:data._id,
+          success:true,
+          message:"Login successfully",
+          admin:false
+        }) 
+      }   
     }catch(error)
     {
          console.log(error);

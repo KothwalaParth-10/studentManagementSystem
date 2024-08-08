@@ -22,6 +22,7 @@ function SignUpPage(props) {
   async function submitform(event) {
     event.preventDefault();
     const reqbody = JSON.stringify(userdata);
+    console.log(reqbody);
     const res = await fetch('http://localhost:4000/smp/signup', {
       method: "POST",
       headers: {
@@ -35,7 +36,7 @@ function SignUpPage(props) {
     {
       toast.success(data.message)
       props.setisLogedin(true);
-      Navigate(`/smp/mainPage/${data.id}`)
+      Navigate(`/smp/mainPage/${false}/${data.id}`)
     }
      }
   return (

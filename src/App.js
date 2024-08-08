@@ -15,7 +15,7 @@ function App() {
       <Routes>
         <Route path='/smp/signup' element={<SignUpPage isLogedin={isLogedin} setisLogedin={setisLogedin} ></SignUpPage>}></Route>
         <Route path='/' element={<LoginPage isLogedin={isLogedin} setisLogedin={setisLogedin}></LoginPage>}></Route>
-        <Route path='/smp/mainPage/:id' element={
+        <Route path='/smp/mainPage/:user/:id' element={
           <PrivateDash isLogedin={isLogedin} setisLogedin={setisLogedin}>
             <MainPage></MainPage>
           </PrivateDash>

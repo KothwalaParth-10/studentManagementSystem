@@ -26,7 +26,6 @@ function LoginPage({ setisLogedin }) {
                 [event.target.name]: event.target.value
             }
         })
-        console.log(Loginuserdata);
     }
 
     async function Submitloginform(event) {
@@ -43,8 +42,8 @@ function LoginPage({ setisLogedin }) {
         console.log(data);
         if (data.success) {
             toast.success(data.message)
-            setisLogedin(true);
-            naivgate(`/smp/mainPage/${data.id}`)
+            setisLogedin(true);        
+                naivgate(`/smp/mainPage/${data.admin}/${data.id}`)           
         } else {
             if(data.id)
             {

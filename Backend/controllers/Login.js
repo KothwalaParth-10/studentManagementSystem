@@ -1,46 +1,49 @@
 const Account=require("../models/UserDataschema");
-
+const bcrypt=require('bcrypt')
 const login=async (req,res)=>{
     try
     {
     const {email,password}=req.body
-    const useremail=await Account.findOne({email});
-    if(!useremail)
+    const user=await Account.findOne({email});
+    if(!user)
     {
      return res.json({
-          id:1,
           success:false,
-          message:"email does not exit"
+          message:"username does not exit",
+          id:1
         })
     }
-    const data=await Account.findOne({email,password});
-    if(!data)
+    const match=await bcrypt.compare(password,user.password); 
+    if(match)
     {
-        return res.json({
-            id:0,
-            success:false,
-            message:"Password does not exit"
-          })   
-    }
-      const checkuser=JSON.stringify(data._id)
-      if(checkuser == '"66a0d2dc3e4423236dcf6b01"' || checkuser == '"66a0d3d877790c5950b815af"')
+      if(user.username == '22ce056' || user.username == "22ce066")
       {
         return res.json({
-          id:data._id,
+          id:user._id,
           success:true,
           message:"Login successfully",
-          admin:true
+          admin:true,
+          status:true
         })  
       } 
       else
       {
         return res.json({
-          id:data._id,
+          id:user._id,
           success:true,
           message:"Login successfully",
-          admin:false
+          admin:false,
+          status:user.status
         }) 
-      }   
+      }    
+    }else
+    {
+      return res.json({
+        success:false,
+        message:"Password does not exit",
+        id:0
+      }) 
+    }
     }catch(error)
     {
          console.log(error);

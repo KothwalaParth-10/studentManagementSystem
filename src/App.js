@@ -9,15 +9,16 @@ import MainPage from './pages/MainPage'
 
 function App() {
   const [isLogedin,setisLogedin] = useState(false);
+  const [user,setAdmin]=useState("");
   return (
     <div className="App">
 
       <Routes>
-        <Route path='/smp/signup' element={<SignUpPage isLogedin={isLogedin} setisLogedin={setisLogedin} ></SignUpPage>}></Route>
-        <Route path='/' element={<LoginPage isLogedin={isLogedin} setisLogedin={setisLogedin}></LoginPage>}></Route>
-        <Route path='/smp/mainPage/:user/:id' element={
+        <Route path='/signup' element={<SignUpPage isLogedin={isLogedin} setisLogedin={setisLogedin} ></SignUpPage>}></Route>
+        <Route path='/' element={<LoginPage isLogedin={isLogedin} setAdmin={setAdmin} setisLogedin={setisLogedin}></LoginPage>}></Route>
+        <Route path='/mainPage' element={
           <PrivateDash isLogedin={isLogedin} setisLogedin={setisLogedin}>
-            <MainPage></MainPage>
+            <MainPage user={user}></MainPage>
           </PrivateDash>
         }></Route>
       </Routes>

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { NavLink, useNavigate } from 'react-router-dom'
 
-function LoginPage({ setisLogedin }) {
+function LoginPage({ setisLogedin,setAdmin }) {
     const [forgetPasswornd, setforgetPassword] = useState(false)
     const naivgate = useNavigate();
     const [Loginuserdata, setLoginuserdata] = useState({
@@ -11,15 +11,14 @@ function LoginPage({ setisLogedin }) {
     })
     const [showerrorinemail, seterroremail] = useState(false);
     const [showerrorinepass, seterrorpass] = useState(false);
+    const [statuscheck,setstatuscheck]=useState(false);
     function Logintrack(event) {
-         if(event.target.name === "email")
-         {
+        if (event.target.name === "email") {
             seterroremail(false)
-         }
-         if(event.target.name === "password")
-         {
+        }
+        if (event.target.name === "password") {
             seterrorpass(false)
-         }
+        }
         setLoginuserdata((prev) => {
             return {
                 ...prev,
@@ -41,17 +40,27 @@ function LoginPage({ setisLogedin }) {
         const data = await res.json();
         console.log(data);
         if (data.success) {
-            toast.success(data.message)
-            setisLogedin(true);        
-                naivgate(`/smp/mainPage/${data.admin}/${data.id}`)           
-        } else {
-            if(data.id)
-            {
-               seterroremail(true) ;
+            if (data.status) {
+               setisLogedin(true)
+               if(data.admin)
+               {
+                setAdmin("true")
+               }else
+               {
+                setAdmin("false");
+               }
+               naivgate(`/mainpage`)
+               toast.success(data.message)             
+            } else {
+                setisLogedin(false);
+                setstatuscheck(true);
             }
-            else
-            {
-               seterrorpass(true);
+        } else {
+            if (data.id) {
+                seterroremail(true);
+            }
+            else {
+                seterrorpass(true);
             }
             setisLogedin(false)
         }
@@ -90,6 +99,9 @@ function LoginPage({ setisLogedin }) {
                                                 {
                                                     showerrorinepass && <p className=' text-red-600'>password does not exist</p>
                                                 }
+                                                {
+                                                    statuscheck && <p className=' text-red-600'>Please wait for an admin to verify you</p>
+                                                }
                                             </div>
                                         </div>
                                         <button type="submit" className="btn w-full py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Login</button>
@@ -99,7 +111,7 @@ function LoginPage({ setisLogedin }) {
                                     </div>)
                             }
                         </div>
-                        <NavLink to="/smp/signup" className="text-blue-500 hover:underline">Do not have a  Account?</NavLink>
+                        <NavLink to="/signup" className="text-blue-500 hover:underline">Do not have a  Account?</NavLink>
                     </form>
                 </div>
             </div>

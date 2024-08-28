@@ -3,7 +3,10 @@ import toast from 'react-hot-toast'
 import { NavLink, useNavigate } from 'react-router-dom'
 
 function SignUpPage(props) {
-  const Navigate = useNavigate();
+  // const Navigate = useNavigate();
+  const [data, usedata] = useState({
+    success: false
+  });
   const [userdata, setuserdata] = useState({
     name: "",
     email: "",
@@ -30,15 +33,22 @@ function SignUpPage(props) {
       },
       body: reqbody
     })
-    const data = await res.json();
-    console.log(data);
-    if(data.success)
-    {
-      toast.success(data.message)
-      props.setisLogedin(true);
-      Navigate(`/smp/mainPage/${false}/${data.id}`)
+    const fetchdata = await res.json();
+    console.log(fetchdata);
+    if (fetchdata.success) {
+      toast.success(fetchdata.message)
+      // props.setisLogedin(true);
+      //  Navigate(`/smp/mainPage/${false}/${data.id}`)
     }
-     }
+    else {
+      usedata(
+        {
+          success: true,
+          message: fetchdata.error
+        }
+      );
+    }
+  }
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="container flex justify-center items-center w-full">
@@ -64,6 +74,9 @@ function SignUpPage(props) {
               <label htmlFor="confirm-password" className="block mb-1 text-gray-700 text-start font-semibold">Confirm Password</label>
               <input type="password" value={userdata.confirmpassword} id="confirm-password" placeholder="Confirm your password" required className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500"
                 name='confirmpassword' onChange={chnageHandler}></input>
+              {
+                data.success && <p className=' text-red-600 mt-2'>{data.message}</p>
+              }
             </div>
             <button type="submit" id="signup-btn" className="w-full py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Sign Up</button>
           </form>

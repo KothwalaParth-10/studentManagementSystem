@@ -45,11 +45,12 @@ function LoginPage({ setisLogedin,setAdmin }) {
                if(data.admin)
                {
                 setAdmin("true")
+                naivgate(`/mainpage/${data.data.name}`)
                }else
                {
                 setAdmin("false");
+                naivgate(`/mainpage/${data.data.email.split("@")[0]}`)
                }
-               naivgate(`/mainpage`)
                toast.success(data.message)             
             } else {
                 setisLogedin(false);

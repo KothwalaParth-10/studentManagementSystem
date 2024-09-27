@@ -3,7 +3,10 @@ const Account=require("../models/UserDataschema")
 
 exports.getalldata= async (req,res)=>{
     try{  
-    const data=await Account.find({})
+    let data=await Account.find({})
+    data=data.filter((student)=>{
+      return (!student.email.includes("22ce056") && !student.email.includes("22ce066"))
+    })
       res.status(200).json({
         data:data,
         success:true,

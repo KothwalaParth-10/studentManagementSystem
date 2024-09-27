@@ -5,7 +5,7 @@ const {Dbconnect}=require("./config/Database");
 app.use(express.json())
 require("dotenv").config()
 app.use(cors({
-    origin: 'http://localhost:3000', // or use '*' to allow all origins
+    origin: '*', // or use '*' to allow all origins
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']
   }));

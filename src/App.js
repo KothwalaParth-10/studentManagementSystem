@@ -16,7 +16,7 @@ function App() {
       <Routes>
         <Route path='/signup' element={<SignUpPage isLogedin={isLogedin} setisLogedin={setisLogedin} ></SignUpPage>}></Route>
         <Route path='/' element={<LoginPage isLogedin={isLogedin} setAdmin={setAdmin} setisLogedin={setisLogedin}></LoginPage>}></Route>
-        <Route path='/mainPage' element={
+        <Route path='/mainPage/:name' element={
           <PrivateDash isLogedin={isLogedin} setisLogedin={setisLogedin}>
             <MainPage user={user}></MainPage>
           </PrivateDash>
